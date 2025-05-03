@@ -2,7 +2,8 @@
 const express = require('express')
 const app = express()
 const handlebars = require('express-handlebars')
-const bodyparser = require('body-parser')
+const bodyParser = require('body-parser')
+const path = require('path')
 const session = require('express-session')
 const index = require('./routes/index')
 require('dotenv').config()
@@ -29,6 +30,13 @@ require('dotenv').config()
     })))
     app.set('view engine', 'handlebars')
     app.set('views', __dirname + '/views')
+
+    // bodyparser
+    app.use(bodyParser.urlencoded({ extended: false }));
+
+    // static files
+    app.use(express.static(path.join(__dirname,'public')))
+
 
     app.use('/', index)
 
